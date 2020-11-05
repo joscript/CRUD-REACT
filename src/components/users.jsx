@@ -23,10 +23,8 @@ class Users extends Component {
     }
     
     clearForm = () => {
-        this.setState(prevState => ({
-            user: {...prevState.user, firstName: ''},
-            user: {...prevState.user,lastName: ''}
-        }))
+        this.setState(prevState => ({user: {...prevState.user, firstName: ''}}));
+        this.setState(prevState => ({user: {...prevState.user, lastName: ''}}));
     }
 
     handleForm = (e) => {
@@ -98,7 +96,7 @@ class Users extends Component {
             console.log('loading....');
         }else{
             let tableRow = this.state.users.map((user) => {
-                    return (<tr key={user.id}>
+                    return (<tr key={user._id}>
                         <th scope="row">{user._id}</th>
                         <td>{user.firstName}</td>
                         <td>{user.lastName}</td>
@@ -119,22 +117,20 @@ class Users extends Component {
                 <div className="m-5">
 
                     {this.state.formAction === 'DELETE' &&
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <div className="alert alert-danger alert-dismissible fade show" role="alert">
                             <div>
                                 <strong>Warning!</strong> Are you sure deleting this record? 
                                 <button onClick={this.handleForm} className="btn btn-danger btn-sm ml-3">Proceed</button>
                             </div>
-                            <button onClick={() => this.setState({formAction: ""})} type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <button onClick={() => this.setState({formAction: ""})} type="button" className="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                     }
 
-                    <button className="btn btn-primary btn-sm mb-2" onClick={() => this.handleFormAction('POST', '')}>Add user</button>
+                    <button className="btn btn-primary btn-sm mb-2" onClick={() => this.handleFormAction('POST', this.state.user)}>Add user</button>
                     {this.state.formAction == "" || this.state.formAction !== "DELETE" &&
                     <Form
-                        // firstName={this.state.firstName} 
-                        // lastName={this.state.lastName} 
                         onFirstNameChange={this.handleFirstNameChange} 
                         onLastNameChange={this.handleLastNameChange} 
                         onSubmitForm={this.handleForm}
