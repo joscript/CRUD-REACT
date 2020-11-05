@@ -43,8 +43,8 @@ class Users extends Component {
                 console.log(err);
                 if(err.response.status === 422) alert(err.response.data);
             });
-        } else if(this.state.formAction === 'PUT'){
-            window.axios.put(`http://127.0.0.1:8000/api/users/${this.state.user._id}`, this.state.user)
+        } else if(this.state.formAction === 'PATCH'){
+            window.axios.patch(`http://127.0.0.1:8000/api/users/${this.state.user._id}`, this.state.user)
             .then((res) => {
                 console.log('user updated!', res);
                 this.clearForm();
@@ -99,12 +99,12 @@ class Users extends Component {
         }else{
             let tableRow = this.state.users.map((user) => {
                     return (<tr key={user.id}>
-                        <th scope="row">{user.id}</th>
+                        <th scope="row">{user._id}</th>
                         <td>{user.firstName}</td>
                         <td>{user.lastName}</td>
                         <td>
                             <div className="btn-group" role="group" aria-label="Basic example">
-                                <button onClick={() => this.handleFormAction('PUT', user)} type="button" className="btn btn-secondary btn-sm">Edit</button>
+                                <button onClick={() => this.handleFormAction('PATCH', user)} type="button" className="btn btn-secondary btn-sm">Edit</button>
                                 <button onClick={() => this.handleFormAction('DELETE', user)} type="button" className="btn btn-dark btn-sm">Delete</button>
                             </div>
                         </td>
@@ -148,7 +148,7 @@ class Users extends Component {
                     <table className="table table-borderless">
                         <thead>
                             <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">#ID</th>
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
                             <th scope="col">Actions</th>
