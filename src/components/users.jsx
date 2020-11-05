@@ -8,8 +8,8 @@ class Users extends Component {
         lastName: "",
         formAction: "",
         user: {
-            first_name: '',
-            last_name: ''
+            firstName: '',
+            lastName: ''
         }
     }
 
@@ -24,8 +24,8 @@ class Users extends Component {
     
     clearForm = () => {
         this.setState(prevState => ({
-            user: {...prevState.user, first_name: ''},
-            user: {...prevState.user,last_name: ''}
+            user: {...prevState.user, firstName: ''},
+            user: {...prevState.user,lastName: ''}
         }))
     }
 
@@ -44,7 +44,7 @@ class Users extends Component {
                 if(err.response.status === 422) alert(err.response.data);
             });
         } else if(this.state.formAction === 'PUT'){
-            window.axios.put(`http://127.0.0.1:8000/api/users/${this.state.user.id}`, this.state.user)
+            window.axios.put(`http://127.0.0.1:8000/api/users/${this.state.user._id}`, this.state.user)
             .then((res) => {
                 console.log('user updated!', res);
                 this.clearForm();
@@ -56,7 +56,7 @@ class Users extends Component {
                 if(err.response.status === 422) alert(err.response.data);
             });
         } else if(this.state.formAction === 'DELETE'){
-            window.axios.delete(`http://127.0.0.1:8000/api/users/${this.state.user.id}`)
+            window.axios.delete(`http://127.0.0.1:8000/api/users/${this.state.user._id}`)
             .then((res) => {
                 console.log('user deleted!', res);
                 this.clearForm();
@@ -80,7 +80,7 @@ class Users extends Component {
         this.setState(prevState => ({
             user: {
                 ...prevState.user,              // copy all other key-value pairs of user object
-                first_name: event.target.value
+                firstName: event.target.value
             }
         }))
     }
@@ -88,7 +88,7 @@ class Users extends Component {
         this.setState(prevState => ({
             user: {
                 ...prevState.user,
-                last_name: event.target.value
+                lastName: event.target.value
             }
         }))
     }
@@ -100,8 +100,8 @@ class Users extends Component {
             let tableRow = this.state.users.map((user) => {
                     return (<tr key={user.id}>
                         <th scope="row">{user.id}</th>
-                        <td>{user.first_name}</td>
-                        <td>{user.last_name}</td>
+                        <td>{user.firstName}</td>
+                        <td>{user.lastName}</td>
                         <td>
                             <div className="btn-group" role="group" aria-label="Basic example">
                                 <button onClick={() => this.handleFormAction('PUT', user)} type="button" className="btn btn-secondary btn-sm">Edit</button>

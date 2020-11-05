@@ -15,11 +15,11 @@ class Form extends Component {
                 <form className="shadow rounded p-3">
                     <div className="form-group">
                         <label htmlFor="First name">First name</label>
-                        <input type="text" className="form-control" value={this.props.user.first_name} onChange={this.props.onFirstNameChange}></input>
+                        <input type="text" className="form-control" value={this.props.user.firstName} onChange={this.props.onFirstNameChange}></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="First name">Last name</label>
-                        <input type="text" className="form-control" value={this.props.user.last_name} onChange={this.props.onLastNameChange}></input>
+                        <input type="text" className="form-control" value={this.props.user.lastName} onChange={this.props.onLastNameChange}></input>
                     </div>
                     <div className="text-right">
                         <button onClick={this.props.onCancelForm} className="btn btn-sm btn-secondary m-1">Cancel</button>
