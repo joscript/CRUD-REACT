@@ -3,18 +3,20 @@ import { Component } from 'react';
 import Navbar from './components/navbar';
 import Users from './components/users';
 
-class App extends Component {
-  state = {  }
-  render() {
+import store from './redux/store';
+import { Provider } from 'react-redux';
+
+function App() {
     return ( 
-      <div className="App">
-        <Navbar />
-        <div className="container">
-          <Users />
+      <Provider store={store}>
+        <div className="App">
+          <Navbar />
+          <div className="container">
+            <Users />
+          </div>
         </div>
-      </div>
-     );
-  }
+      </Provider>
+    );
 }
 
 export default App;
