@@ -1,14 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchUsers } from '../redux/users/userActions';
 
-class Navbar extends Component {
-    state = {  }
-    render() { 
-        return ( 
-            <nav className="navbar navbar-light bg-light">
-                <span className="navbar-brand mb-0 h1">USERS</span>
-            </nav>
-         );
+function Navbar({userData, fetchUsers}) {
+
+    useEffect( () => {
+        fetchUsers()
+    }, [])
+
+    return ( 
+        <nav className="navbar navbar-light bg-light">
+            <span className="navbar-brand mb-0 h1 mx-auto">NUMBER OF USERS: <span className="text-danger">{userData.users.length}</span></span>
+        </nav>
+    );
+}
+
+const mapStateToProps = (state) => {
+    return {
+        userData: state
     }
 }
- 
-export default Navbar;  
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchUsers: () => dispatch(fetchUsers())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);  

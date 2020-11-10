@@ -2,7 +2,7 @@ import {
     FETCH_USERS_REQUEST, 
     FETCH_USERS_SUCCESS, 
     FETCH_USERS_ERROR
-} from './userTypes';
+} from './userActionTypes';
 
 export const fetchUsersRequest = () => {
     return {
@@ -29,7 +29,7 @@ export const fetchUsersError = (error) => {
 export const fetchUsers = () => {   
     return (dispatch) => {
         dispatch(fetchUsersRequest());
-        axios.get('https://jsonplaceholder.typicode.com/users')
+        window.axios.get('http://127.0.0.1:8000/api/users')
             .then((response) => {
                 dispatch(fetchUsersSuccess(response.data))
             })

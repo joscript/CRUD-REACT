@@ -2,7 +2,7 @@ import {
     FETCH_USERS_REQUEST, 
     FETCH_USERS_SUCCESS, 
     FETCH_USERS_ERROR
-} from './userTypes';
+} from './userActionTypes';
 
 const initialState = {
     users: [],

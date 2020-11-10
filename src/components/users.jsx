@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Form from './form';
+import { connect } from 'react-redux';
+import { fetchUsers } from '../redux/users/userActions';
 
 class Users extends Component {
     state = { 
@@ -66,12 +68,14 @@ class Users extends Component {
     }
 
     handleGetUsers(){
-        window.axios.get('http://127.0.0.1:8000/api/users')
-            .then((response) => {
-                const users = response.data;    
-                this.setState({users});
-            })
-            .catch(err => console.log(err))
+        // window.axios.get('http://127.0.0.1:8000/api/users')
+        //     .then((response) => {
+        //         const users = response.data;    
+        //         this.setState({users});
+        //     })
+        //     .catch(err => console.log(err))
+        this.props.fetchUsers();
+        this.setState({users: this.props.userData.users})
     }
 
     handleFirstNameChange = (event) =>{
@@ -95,7 +99,7 @@ class Users extends Component {
         if(this.state.users === null){
             console.log('loading....');
         }else{
-            let tableRow = this.state.users.map((user) => {
+            let tableRow = this.props.userData.users.map((user) => {
                     return (<tr key={user._id}>
                         <th scope="row">{user._id}</th>
                         <td>{user.firstName}</td>
@@ -129,7 +133,7 @@ class Users extends Component {
                     }
 
                     <button className="btn btn-primary btn-sm mb-2" onClick={() => this.handleFormAction('POST', this.state.user)}>Add user</button>
-                    {this.state.formAction == "" || this.state.formAction !== "DELETE" &&
+                    {this.state.formAction === "" || this.state.formAction !== "DELETE" &&
                     <Form
                         onFirstNameChange={this.handleFirstNameChange} 
                         onLastNameChange={this.handleLastNameChange} 
@@ -161,4 +165,16 @@ class Users extends Component {
     }
 }
 
-export default Users;
+const mapStateToProps = (state) => {
+    return{
+        userData: state
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchUsers: () => dispatch(fetchUsers())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Users);
